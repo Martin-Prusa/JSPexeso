@@ -28,9 +28,11 @@ body {
 }
 
 #pexeso-container {
+  width: 80%;
   max-width: 500px;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 #pexeso-container div {

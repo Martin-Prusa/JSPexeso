@@ -3,6 +3,7 @@ let pexesoContainer
 
 const onLoadFunc = function onLoadFunction() {
   pexesoContainer = document.getElementById('pexeso-container')
+  if (cards.length > 8) pexesoContainer.style.maxWidth = '800px'
   duplicateArray(cards)
   cards = shuffleArray(cards)
   addCards(cards)

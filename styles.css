@@ -36,7 +36,7 @@ body {
 }
 
 #pexeso-container div {
-  background-color: white;
+  background-color: #888;
   width: 100px;
   height: 100px;
   border-radius: 10px;
@@ -47,6 +47,18 @@ body {
   align-items: center;
 }
 
-#pexeso-container div p {
-  margin-top: 0;
+.otoceni {
+  animation: otoceni 0.5s ease;
+}
+
+@keyframes otoceni {
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(90deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
 }

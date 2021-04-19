@@ -1,6 +1,7 @@
 let cards = ['🚗', '🚦', '🚁', '🚃', '⛵️', '⛰', '⛺️', '🏠']
 let pexesoContainer
 let otocene = []
+let zpet = false
 
 const onLoadFunc = function onLoadFunction() {
   pexesoContainer = document.getElementById('pexeso-container')
@@ -39,11 +40,15 @@ function addCards(array) {
         (otocene.length == 0 || otocene.length == 1) &&
         !otocene.includes(div)
       ) {
+        zpet = false
         otocene.push(div)
         div.classList.add('otoceni')
         setTimeout(() => (div.innerText = card), 250)
       }
-      if (otocene.length == 2) reset()
+      if (otocene.length == 2 && !zpet) {
+        zpet = true
+        setTimeout(() => reset(), 2000)
+      }
     })
     pexesoContainer.appendChild(div)
   })
@@ -54,13 +59,11 @@ function getRandomNumber(max, min = 0) {
 }
 
 function reset() {
-  setTimeout(() => {
-    otocene.forEach((otocena) => {
-      otocena.classList.remove('otoceni')
-      otocena.innerText = ''
-    })
-    otocene = []
-  }, 2000)
+  otocene.forEach((otocena) => {
+    otocena.classList.remove('otoceni')
+    otocena.innerText = ''
+  })
+  otocene = []
 }
 
 window.onload = onLoadFunc

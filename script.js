@@ -2,13 +2,14 @@ let cards = ['🚗', '🚦', '🚁', '🚃', '⛵️', '⛰', '⛺️', '🏠']
 let pexesoContainer
 let otocene = []
 let zpet = false
+let n = []
 
 const onLoadFunc = function onLoadFunction() {
   pexesoContainer = document.getElementById('pexeso-container')
   if (cards.length > 8) pexesoContainer.style.maxWidth = '800px'
   cards.push(...cards)
-  console.log(cards)
   cards = shuffleArray(cards)
+  console.log(cards)
   addCards(cards)
 }
 
@@ -30,15 +31,24 @@ function addCards(array) {
   array.forEach((card) => {
     let div = document.createElement('div')
     div.addEventListener('click', () => {
-      if (otocene.length <= 1 && !otocene.includes(div)) {
-        zpet = false
+      if (
+        otocene.length <= 1 &&
+        !otocene.includes(div) &&
+        !n.includes(div) &&
+        !zpet
+      ) {
         otocene.push(div)
         div.classList.add('otoceni')
         setTimeout(() => (div.innerText = card), 250)
       }
       if (otocene.length == 2 && !zpet) {
         zpet = true
-        setTimeout(() => reset(), 2000)
+        let same
+        setTimeout(() => {
+          same = isSame()
+          if (same) zpet = false
+          else setTimeout(() => reset(), 2000)
+        }, 250)
       }
     })
     pexesoContainer.appendChild(div)
@@ -55,6 +65,19 @@ function reset() {
     otocena.innerText = ''
   })
   otocene = []
+  zpet = false
+}
+
+function isSame() {
+  if (otocene[0].innerText === otocene[1].innerText) {
+    otocene.forEach((card) => {
+      card.style.backgroundColor = 'green'
+      n.push(card)
+    })
+    otocene = []
+    return true
+  }
+  return false
 }
 
 window.onload = onLoadFunc

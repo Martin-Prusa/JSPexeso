@@ -19,12 +19,15 @@ body {
 .header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   background-color: #333;
   color: white;
   margin: 0;
   height: 60px;
   font-size: 35px;
+}
+.header span {
+  margin: 30px;
 }
 
 #pexeso-container {
@@ -51,4 +54,35 @@ body {
 
 .otoceni {
   transform: rotateY(180deg);
+}
+
+.w {
+  display: none;
+  flex-direction: column;
+  text-align: center;
+}
+
+.w button {
+  padding: 10px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.w button:active {
+  transform: scale(0.97);
+}
+
+.w h3 {
+  color: #444;
+}
+
+.w h2 {
+  text-transform: uppercase;
+}
+
+.time {
+  color: #ddd;
 }

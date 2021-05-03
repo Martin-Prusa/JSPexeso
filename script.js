@@ -1,16 +1,55 @@
-let cards = ['🚗', '🚦', '🚁', '🚃', '⛵️', '⛰', '⛺️', '🏠']
-let pexesoContainer
-let otocene = []
-let zpet = false
-let n = []
+let cards,
+  pexesoContainer,
+  resetBtn,
+  pexesoScreen,
+  winScreen,
+  interval,
+  timeEl,
+  n,
+  time,
+  zpet,
+  otocene,
+  timeElPlay
 
 const onLoadFunc = function onLoadFunction() {
+  cards = ['🚗', '🚦', '🚁', '🚃', '⛵️', '⛰', '⛺️', '🏠']
+  n = []
+  time = 0
+  zpet = false
+  otocene = []
+
+  //get element
   pexesoContainer = document.getElementById('pexeso-container')
+  resetBtn = document.getElementById('reset')
+  pexesoScreen = document.querySelector('.p')
+  winScreen = document.querySelector('.w')
+  timeEl = winScreen.querySelector('h3 span')
+  timeElPlay = document.querySelector('.time')
+
+  //styles
+  pexesoScreen.style.display = 'flex'
+  winScreen.style.display = 'none'
   if (cards.length > 8) pexesoContainer.style.maxWidth = '800px'
+  pexesoContainer.innerHTML = ''
+
+  //generate cards
   cards.push(...cards)
   cards = shuffleArray(cards)
   console.log(cards)
+
+  //add cards to dom
   addCards(cards)
+
+  //other
+  resetBtn.addEventListener('click', onLoadFunc)
+
+  //time
+  interval = setInterval(() => {
+    time++
+    timeElPlay.innerText = `${Math.floor(time / 60)}:${
+      time % 60 < 10 ? '0' + (time % 60) : time % 60
+    }`
+  }, 1000)
 }
 
 function shuffleArray(array) {
@@ -75,9 +114,19 @@ function isSame() {
       n.push(card)
     })
     otocene = []
+    if (n.length === cards.length) win()
     return true
   }
   return false
+}
+
+function win() {
+  clearInterval(interval)
+  timeEl.innerText = `${Math.floor(time / 60)}:${
+    time % 60 < 10 ? '0' + (time % 60) : time % 60
+  }`
+  pexesoScreen.style.display = 'none'
+  winScreen.style.display = 'flex'
 }
 
 window.onload = onLoadFunc
